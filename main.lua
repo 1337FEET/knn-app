@@ -4,4 +4,9 @@
 --
 -----------------------------------------------------------------------------------------
 
--- Your code here
+require "Tests.lunatest"
+
+--Test suites
+
+--Run tests
+lunatest.run()

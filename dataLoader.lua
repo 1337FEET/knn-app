@@ -12,3 +12,8 @@ function loadData(fileName)
   return data
 end
 
+function createArray(fileName)
+  local data = loadData(fileName)
+  local dataset = {{}}
+  return dataset
+end

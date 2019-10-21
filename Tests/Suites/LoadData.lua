@@ -37,3 +37,25 @@ function test_arrayHasThreeDimensions()
   end
   assert_not_nil(result, "dataset array has wrong number of dimensions")
 end
+
+function test_arrayXValuesAreNumbers()
+  local test = createArray(fileName)
+  local result = true
+  for i=1, #test do
+    if tonumber(test[i][1]) == nil then
+	  result = nil
+	end
+  end
+  assert_not_nil(result, "x-value not number")
+end
+
+function test_arrayYValuesAreNumbers()
+  local test = createArray(fileName)
+  local result = true
+  for i=1, #test do
+    if tonumber(test[i][2]) == nil then
+	  result = nil
+	end
+  end
+  assert_not_nil(result, "y-value not number")
+end

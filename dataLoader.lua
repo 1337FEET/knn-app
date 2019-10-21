@@ -15,5 +15,13 @@ end
 function createArray(fileName)
   local data = loadData(fileName)
   local dataset = {{}}
+  local i = 1
+  while data do
+   local line = data:read("*line")
+   if line == nil then break end
+   local x, y, tag = string.match(line,"(%d*),(%d*),(%a*)")
+   dataset[i] = {x, y, tag}
+   i = i + 1
+  end
   return dataset
 end

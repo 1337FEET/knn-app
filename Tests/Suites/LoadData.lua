@@ -59,3 +59,17 @@ function test_arrayYValuesAreNumbers()
   end
   assert_not_nil(result, "y-value not number")
 end
+
+function test_areOnlyTwoTags()
+  local test = createArray(fileName)
+  local numberOfTags = 1
+  for i = 1, (#test - 1) do
+    tag1 = test[i][3]
+	tag2 = test[i+1][3]
+	if tag1 ~= tag2 then
+	    numberOfTags = numberOfTags + 1
+	end
+    print(numberOfTags)
+  end
+  assert_equal(2, numberOfTags, "wrong number of categories! This program only uses two!")
+end

@@ -23,5 +23,6 @@ function createArray(fileName)
    dataset[i] = {x, y, tag}
    i = i + 1
   end
+  data:close()
   return dataset
 end

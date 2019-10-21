@@ -26,3 +26,14 @@ function test_arrayCreationSuccessful()
   local test = createArray(fileName)
   assert_not_nil(test, "dataset array not created")
 end
+
+function test_arrayHasThreeDimensions()
+  local test = createArray(fileName)
+  local result = true
+  for i=1, #test do
+    if #test[i] ~= 3 then
+	  result = nil
+	end
+  end
+  assert_not_nil(result, "dataset array has wrong number of dimensions")
+end

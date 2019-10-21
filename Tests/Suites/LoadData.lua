@@ -13,9 +13,16 @@ function teardown()
 end
 
 function test_dataFileExists()
-  assert_not_nil(filePath(fileName), "data file not found")
+  local test = filePath(fileName)
+  assert_not_nil(test, "data file not found")
 end
 
 function test_dataLoaderReturnsNonNil()
-  assert_not_nil(loadData(fileName), "problem with data loader")
+  local test = loadData(fileName)
+  assert_not_nil(test, "problem with data loader")
+end
+
+function test_arrayCreationSuccessful()
+  local test = createArray(fileName)
+  assert_not_nil(test, "dataset array not created")
 end

@@ -11,3 +11,4 @@ function loadData(fileName)
   local data = io.open(path, "r")
   return data
 end
+

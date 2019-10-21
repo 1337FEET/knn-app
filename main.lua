@@ -11,8 +11,7 @@ require "dataLoader"
 lunatest.suite("Tests.Suites.LoadData")
 
 --Main function (to be moved)
-data = loadData("knn.csv")
-print(data)
+fileName = "knn.csv"
 
 --Run tests
 lunatest.run()

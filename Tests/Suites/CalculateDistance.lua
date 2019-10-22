@@ -1,9 +1,26 @@
 module(..., package.seeall)
 
---This test suite is concerned with the correct measure of distances.
---Therefore the suite setup will contain a number of preselected values,
---which will have known distances from each other that will be used for testing.
-function suite_setup()
+function test_cosineSimilarity()
+  --a small function to round numbers to a custom number of places.
+  function round(num, pl)
+    return math.floor((num*math.pow(10,pl)+0.5))/math.pow(10,pl)
+  end
+  --test points
+   local point1 = {-10, 5}
+   local point2 = {3, 6}
+   local point3 = {12, 2}
+   local point4 = {5, 9}
+   local point5 = {1, -4}
+   local point6 = {-2, -8}
+   local result = true
+   --test
+  if round(cosineSimilarity(point1,point2), 3) ~= 0.000 or round(cosineSimilarity(point2,point3), 3) ~= 0.588 or round(cosineSimilarity(point3,point4), 3) ~= 0.623 or round(cosineSimilarity(point4,point5), 3) ~= -0.730 or round(cosineSimilarity(point5,point6), 3) ~= 0.882 or round(cosineSimilarity(point1,point6),3) ~= -0.217 then
+    result = nil
+  end 
+  assert_not_nil(result, "cosine similarity calculation failed")
+end
+
+function test_euclideanDistance()
   local point1 = {-10, 5}
   local point2 = {3, 6}
   local point3 = {12, 2}
@@ -11,11 +28,9 @@ function suite_setup()
   local point5 = {1, -4}
   local point6 = {-2, -8}
   local result = true
-end
-
-function test_cosineSimilarity()
-  if cosineSimilarity(point1,point2) ~= 0.000 or cosineSimilarity(point2,point3) ~= 0.588 or cosineSimilarity(point3,point4) ~= 0.623 or cosineSimilarity(point4,point5) ~= -0.730 or cosineSimilarity(point5,point6) ~= 0.882 or cosineSimilarity(point1,point6) ~= -0.217 then
+   --test
+  if round(minkowskiDistance(point1, point2, 2), 3) ~= 13.038 or round(minkowskiDistance(point2, point3, 2), 3) ~= 9.849 then-- or round(minkowskiDistance(point3, point4, 2), 3) ~= 0.623 or round(minkowskiDistance(point4, point5, 2), 3) ~= -0.730 or round(minkowskiDistance(point5, point6, 2), 3) ~= 0.882 or round(minkowskiDistance(point1, point6, 2),3) ~= -0.217 then
     result = nil
   end 
-  assert_not_nil(result, "cosine similarity calculation failed")
+  assert_not_nil(result, "euclidean distance calculation failed")
 end

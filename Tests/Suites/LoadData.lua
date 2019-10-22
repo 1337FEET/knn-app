@@ -69,7 +69,6 @@ function test_areOnlyTwoTags()
 	if tag1 ~= tag2 then
 	    numberOfTags = numberOfTags + 1
 	end
-    print(numberOfTags)
   end
   assert_equal(2, numberOfTags, "wrong number of categories! This program only uses two!")
 end

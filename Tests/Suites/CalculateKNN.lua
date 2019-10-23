@@ -1,4 +1,5 @@
 module(..., package.seeall)
+
 --Is array created and is it the same size?
 function test_distanceArray()
   local fileName = "knn.csv"
@@ -24,17 +25,25 @@ end
 function test_orderDistanceArray()
   local result = true
   local fileName = "knn.csv"
-  local unknownPoint = {4,5}
+  local unknownPoint = {10,-4}
   local distanceMetric = {manhattanDistance, cosineSimilarity}
+  --No one-to-one relationship between names and functions so had to store names as strings seperately
+  local distanceMetricName = {"manhattanDistance", "cosineSimilarity"}
   local dataset = createArray(fileName)
   for i = 1, #distanceMetric do
     local distanceArray = createDistanceArray(unknownPoint, dataset, distanceMetric[i], pValue)
-    local testArray = orderDistanceArray(distanceArray, distanceMetric[i])
+	local testArray = orderDistanceArray(distanceArray, distanceMetricName[i])
     for j = 1, #testArray - 1 do
-      if testArray[j] > testArray[j+1] then
-	    result = nil
+	  if tostring(distanceMetricName[i]) == "cosineSimilarity" then
+        if testArray[j][2] < testArray[j+1][2] then
+	      result = nil
+		end
+	  else 
+	    if testArray[j][2] > testArray[j+1][2] then
+	     result = nil
+	    end
 	  end
-    end
+	end
   end
   assert_not_nil(result, "distance array not ordered correctly")
 end

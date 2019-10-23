@@ -107,11 +107,11 @@ end
 
 function test_kSize()
   local result = true
-  local filename = "knn.csv"
+  local fileName = "knn.csv"
   local unknownPoint = {10, -4}
   local distanceMetric = manhattanDistance
   local distanceMetricName = "manhattanDistance"
-  local dataset = createArray(filename)
+  local dataset = createArray(fileName)
   local k = {3, 5, 15}
   local distanceArray = createDistanceArray(unknownPoint, dataset, distanceMetric, pValue)
   local orderedArray = orderDistanceArray(distanceArray, distanceMetricName)

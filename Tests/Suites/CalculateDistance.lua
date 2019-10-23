@@ -45,3 +45,14 @@ function test_manhattanDistance()
   end
   assert_not_nil(result, "manhattan distance calculation failed")
 end
+
+function test_chebyshevDistance()
+  local point1 = {5, 9}
+  local point2 = {1, -4}
+  local point3 = {-2, -8}
+  local result = true
+  if chebyshevDistance(point1,point2) ~= 13 or chebyshevDistance(point2,point3) ~= 4 or chebyshevDistance(point1,point3) ~= 17 then
+    result = nil
+  end
+  assert_not_nil(result, "chebyshev distance calculation failed")
+end

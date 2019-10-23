@@ -5,7 +5,6 @@ function suite_setup()
 end
 
 function setup()
-
 end
 
 function teardown()
@@ -13,21 +12,25 @@ function teardown()
 end
 
 function test_dataFileExists()
+  local fileName = "knn.csv"
   local test = filePath(fileName)
   assert_not_nil(test, "data file not found")
 end
 
 function test_dataLoaderReturnsNonNil()
+  local fileName = "knn.csv"
   local test = loadData(fileName)
   assert_not_nil(test, "problem with data loader")
 end
 
 function test_arrayCreationSuccessful()
+  local fileName = "knn.csv"
   local test = createArray(fileName)
   assert_not_nil(test, "dataset array not created")
 end
 
 function test_arrayHasThreeDimensions()
+  local fileName = "knn.csv"
   local test = createArray(fileName)
   local result = true
   for i=1, #test do
@@ -39,6 +42,7 @@ function test_arrayHasThreeDimensions()
 end
 
 function test_arrayXValuesAreNumbers()
+  local fileName = "knn.csv"
   local test = createArray(fileName)
   local result = true
   for i=1, #test do
@@ -50,6 +54,7 @@ function test_arrayXValuesAreNumbers()
 end
 
 function test_arrayYValuesAreNumbers()
+  local fileName = "knn.csv"
   local test = createArray(fileName)
   local result = true
   for i=1, #test do
@@ -61,6 +66,7 @@ function test_arrayYValuesAreNumbers()
 end
 
 function test_areOnlyTwoTags()
+  local fileName = "knn.csv"
   local test = createArray(fileName)
   local numberOfTags = 1
   for i = 1, (#test - 1) do

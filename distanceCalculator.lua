@@ -20,3 +20,17 @@ function chebyshevDistance(point1, point2)
   local distance = math.max(math.abs(point1[1]-point2[1]),point1[2]-point2[2])
   return distance
 end
+--p for minkowski
+function calculateDistance(metric, point1, point2, p)
+  if metric == minkowskiDistance then
+    return metric(point1,point2, p)
+  end
+  if metric == manhattanDistance then
+    metric = minkowskiDistance
+    return metric(point1,point2, 1)
+  end
+  if metric == euclideanDistance then
+    metric = minkowskiDistance
+    return metric(point1,point2, 2)
+  else return metric(point1, point2) end
+end

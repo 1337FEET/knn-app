@@ -47,3 +47,84 @@ function test_orderDistanceArray()
   end
   assert_not_nil(result, "distance array not ordered correctly")
 end
+
+function test_kTooBigWarning()
+  local result = true
+  local filename = "knn.csv"
+  local unknownPoint = {10, -4}
+  local distanceMetric = manhattanDistance
+  local distanceMetricName = "manhattanDistance"
+  local dataset = createArray(filename)
+  local k = #dataset + 1
+  local distanceArray = createDistanceArray(unknownPoint, dataset, distanceMetric, pValue)
+  local orderedArray = orderDistanceArray(distanceArray, distanceMetricName)
+  local testArray = kNNeighbourhood(orderedArray, k)
+  if testArray ~= "k is greater than dataset size" then
+	result = nil
+  end
+  assert_not_nil(result, "No warning on k being bigger than dataset")
+end
+
+function test_kZeroOrLess()
+  local result = true
+  local filename = "knn.csv"
+  local unknownPoint = {10, -4}
+  local distanceMetric = manhattanDistance
+  local distanceMetricName = "manhattanDistance"
+  local dataset = createArray(filename)
+  local k = {0, -10}
+  local distanceArray = createDistanceArray(unknownPoint, dataset, distanceMetric, pValue)
+  local orderedArray = orderDistanceArray(distanceArray, distanceMetricName)
+  local testArray
+  for i = 1, #k do
+    testArray = kNNeighbourhood(orderedArray, k[i])
+    if testArray ~= "k must be greater than or equal to one" then
+	result = nil
+	end
+  end
+  assert_not_nil(result, "No warning on k being less than or equal to zero")
+end
+
+function test_kEven()
+  local result = true
+  local filename = "knn.csv"
+  local unknownPoint = {10, -4}
+  local distanceMetric = manhattanDistance
+  local distanceMetricName = "manhattanDistance"
+  local dataset = createArray(filename)
+  local k = {2, 6}
+  local distanceArray = createDistanceArray(unknownPoint, dataset, distanceMetric, pValue)
+  local orderedArray = orderDistanceArray(distanceArray, distanceMetricName)
+  local testArray
+  for i = 1, #k do
+    testArray = kNNeighbourhood(orderedArray, k[i])
+    if testArray ~= "k must be odd" then
+	result = nil
+	end
+  end
+  assert_not_nil(result, "No warning on k being even")
+end
+
+function test_kSize()
+  local result = true
+  local filename = "knn.csv"
+  local unknownPoint = {10, -4}
+  local distanceMetric = manhattanDistance
+  local distanceMetricName = "manhattanDistance"
+  local dataset = createArray(filename)
+  local k = {3, 5, 15}
+  local distanceArray = createDistanceArray(unknownPoint, dataset, distanceMetric, pValue)
+  local orderedArray = orderDistanceArray(distanceArray, distanceMetricName)
+  local testArray
+  for i = 1, #k do
+    testArray = kNNeighbourhood(orderedArray, k[i])
+	--tie breaker. +2 to take into account the non-admissability of even k values
+	while orderedArray[k[i]][2] == orderedArray[k[i]+1][2] do
+	  k[i] = k[i] + 2
+	end
+    if #testArray ~= k[i] then
+	  result = nil
+	end
+  end
+  assert_not_nil(result, "size of kNNeighbourhood does not equal k.")
+end

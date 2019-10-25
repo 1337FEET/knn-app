@@ -1,6 +1,7 @@
-function calculateClass(array, votingSystem)
-  return votingSystem(array)
-end
+function calculateClass(array, votingSel)
+  local votingSystem = {unitary, harmonic} --unitary of harmonic voting system
+    return votingSystem[votingSel](array)
+  end
 
 function unitary(array)
   tag1 = array[1][1][3]
@@ -30,16 +31,12 @@ function harmonic(array)
   tag2Number = 0
   for i = 2, #array do
     if array[i][1][3] == tag1 then
-	--If distances are equal, the amount they add to the voting should be equal. This is the point from the if-statement below.
-	  if array[i][2] == array[i-1][2] then
-	    tag1Number = tag1Number + (1/(i-1))
-	  else tag1Number = tag1Number + (1/(i)) end
+	--If distances are equal, the amount they add to the voting should be equal. Therefore I divide by distance, not by position in array.
+	  tag1Number = tag1Number + (1/(array[i][2]))
 	else
 	  tag2 = array[i][1][3]
 	  if tag2 ~= nil then
-	    if array[i][2] == array[i-1][2] then
-	      tag2Number = tag2Number + (1/(i-1))
-	    else tag2Number = tag2Number + (1/(i)) end
+	    tag2Number = tag2Number + (1/(array[i][2]))
 	  end
 	end
   end

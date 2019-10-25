@@ -1,8 +1,10 @@
-function filePath(fileName)
-  local filePath = system.pathForFile([[Data\]] .. fileName)
-   if filePath == nil then
-    return nil
-   else return filePath end
+function filePath(path)
+  if path == nil then
+    local filePath = system.pathForFile([[Data/knn.csv]])
+    if filePath == nil then
+      return nil
+    else return filePath end
+  end
 end
 
 function loadData(fileName)

@@ -58,11 +58,11 @@ function test_kTooBigWarning()
   local k = #dataset + 1
   local distanceArray = createDistanceArray(unknownPoint, dataset, distanceMetric, pValue)
   local orderedArray = orderDistanceArray(distanceArray, distanceMetricName)
-  local testArray = kNNeighbourhood(orderedArray, k)
-  if testArray ~= "k is greater than dataset size" then
-	result = nil
-  end
-  assert_not_nil(result, "No warning on k being bigger than dataset")
+  assert_error(pcall(kNNeighbourhood(orderedArray, k)), "Expected k too big error, got nothing")
+--if testArray ~= "k is greater than dataset size" then
+	--result = nil
+  --end
+ -- assert_not_nil(result, "No warning on k being bigger than dataset")
 end
 
 function test_kZeroOrLess()
